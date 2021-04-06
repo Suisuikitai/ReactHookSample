@@ -101,6 +101,7 @@ function SearchBar(props) {
 }
 
 function FilterableProductTable(props) {
+  //ここに持つべきではない気がする..
   const [filterText, setFilterText] = useState('');
 
   const [inStockOnly, setInStockOnly] = useState(false);
