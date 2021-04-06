@@ -71,9 +71,9 @@ function ProductTable(props) {
 
 function SearchBar(props) {
 
-  // function handleFilterTextChange(e) {
-  //   props.onFilterTextChange(e.target.value);
-  // }
+  function handleFilterTextChange(e) {
+    props.onFilterTextChange(e.target.value);
+  }
 
   function handleInStockChange(e) {
     props.onInStockChange(e.target.checked);
@@ -85,7 +85,7 @@ function SearchBar(props) {
         type="text"
         placeholder="Search..."
         value={props.filterText}
-        onChange={props.onFilterTextChange}
+        onChange={e => props.onFilterTextChange(e.target.value)}
       />
       <p>
         <input
@@ -102,22 +102,19 @@ function SearchBar(props) {
 
 function FilterableProductTable(props) {
   const [filterText, setFilterText] = useState('');
-  useEffect(() => {
-    setFilterText(filterText);
-  }, [filterText]);
 
   const [inStockOnly, setInStockOnly] = useState(false);
-  function handleInStockChange(inStockOnly) {
-    setInStockOnly(inStockOnly);
-  }
+  // function handleInStockChange(inStockOnly) {
+  //   setInStockOnly(inStockOnly);
+  // }
 
   return (
       <div>
         <SearchBar
           filterText={filterText}
           inStockOnly={inStockOnly}
-          onFilterTextChange={() => setFilterText(filterText)}
-          onInStockChange={handleInStockChange}
+          onFilterTextChange={setFilterText}
+          onInStockChange={() => setInStockOnly(inStockOnly)}
         />
         <ProductTable
           products={props.products}
