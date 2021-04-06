@@ -85,6 +85,8 @@ function SearchBar(props) {
         type="text"
         placeholder="Search..."
         value={props.filterText}
+        // onChange={e => handleFilterTextChange(e)}
+        // 合成イベントのみが引数の場合は呼び出し箇所で明示的に引数を渡す必要なし
         onChange={handleFilterTextChange}
       />
       <p>
@@ -102,19 +104,29 @@ function SearchBar(props) {
 
 function FilterableProductTable(props) {
   const [filterText, setFilterText] = useState('');
+  useEffect(() => {
+
+  });
+  function handleInFilterTextChange(filterText){
+    setFilterText(filterText);
+  }
+  useEffect(() => {
+    //初期表示の時だけなんかしたい時は第二引数を空の配列にする
+    setFilterText('effect');
+  }, [])
 
   const [inStockOnly, setInStockOnly] = useState(false);
-  // function handleInStockChange(inStockOnly) {
-  //   setInStockOnly(inStockOnly);
-  // }
+  function handleInStockChange(inStockOnly) {
+    setInStockOnly(inStockOnly);
+  }
 
   return (
       <div>
         <SearchBar
           filterText={filterText}
           inStockOnly={inStockOnly}
-          onFilterTextChange={(e) => setFilterText(e)}
-          onInStockChange={() => setInStockOnly(inStockOnly)}
+          onFilterTextChange={handleInFilterTextChange}
+          onInStockChange={handleInStockChange}
         />
         <ProductTable
           products={props.products}
