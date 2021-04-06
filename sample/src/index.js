@@ -85,7 +85,7 @@ function SearchBar(props) {
         type="text"
         placeholder="Search..."
         value={props.filterText}
-        onChange={e => props.onFilterTextChange(e.target.value)}
+        onChange={handleFilterTextChange}
       />
       <p>
         <input
@@ -101,7 +101,6 @@ function SearchBar(props) {
 }
 
 function FilterableProductTable(props) {
-  //ここに持つべきではない気がする..
   const [filterText, setFilterText] = useState('');
 
   const [inStockOnly, setInStockOnly] = useState(false);
@@ -114,7 +113,7 @@ function FilterableProductTable(props) {
         <SearchBar
           filterText={filterText}
           inStockOnly={inStockOnly}
-          onFilterTextChange={setFilterText}
+          onFilterTextChange={(e) => setFilterText(e)}
           onInStockChange={() => setInStockOnly(inStockOnly)}
         />
         <ProductTable
